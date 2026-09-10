@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claudio Traspadini Oliveira — Senior Software Engineer</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-dark: #0b1118;
+      --bg-surface: #101923;
+      --bg-card: #152230;
+      --coral: #ff6b57;
+      --coral-hover: #ff523b;
+      --text-white: #ffffff;
+      --text-muted: #8ea1b4;
+      --text-dim: #5c6f84;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(255, 107, 87, 0.4);
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-main);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(11, 17, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+    .nav-brand {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-brand .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--coral);
+      border-radius: 50%;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--text-white);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding-top: 140px;
+      padding-bottom: 70px;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      gap: 40px;
+      width: 100%;
+    }
+    .hero-intro {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .hero-intro .dot {
+      color: var(--coral);
+    }
+    .hero-subline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .hero-subline::before {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 2px;
+      background: var(--coral);
+    }
+    .hero-title {
+      font-size: clamp(38px, 5.2vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 32px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-coral {
+      background: var(--coral);
+      color: #ffffff;
+      padding: 12px 26px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      border: 1px solid var(--coral);
+      cursor: pointer;
+    }
+    .btn-coral:hover {
+      background: var(--coral-hover);
+      border-color: var(--coral-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 107, 87, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text-white);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 12px 26px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover {
+      border-color: var(--text-white);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Avatar / Visual (Similar to Jensen Omega photo circle design) */
+    .hero-avatar-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .avatar-circle-outer {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 107, 87, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: radial-gradient(circle, rgba(255,107,87,0.12) 0%, rgba(11,17,24,0) 70%);
+    }
+    .avatar-circle-outer::before {
+      content: '<';
+      position: absolute;
+      top: 10%;
+      left: -20px;
+      font-family: var(--font-mono);
+      font-size: 28px;
+      color: rgba(255, 107, 87, 0.4);
+      font-weight: 300;
+    }
+    .avatar-circle-outer::after {
+      content: '/>';
+      position: absolute;
+      bottom: 10%;
+      right: -25px;
+      font-family: var(--font-mono);
+      font-size: 24px;
+      color: rgba(255, 107, 87, 0.4);
+      font-weight: 300;
+    }
+    .avatar-inner {
+      width: 270px;
+      height: 270px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1c2b3a, #101923);
+      border: 3px solid var(--coral);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+    .avatar-placeholder {
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--coral);
+      letter-spacing: -2px;
+      user-select: none;
+    }
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ─── TECH TICKER BAR ─── */
+    .tech-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(16, 25, 35, 0.5);
+      padding: 22px 0;
+    }
+    .tech-bar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .tech-bar-item {
+      color: var(--text-dim);
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .tech-bar-item:hover {
+      color: var(--text-white);
+    }
+
+    /* ─── ABOUT SECTION ─── */
+    .section-about {
+      padding: 100px 0;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .about-features::before {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 25px;
+      bottom: 25px;
+      width: 2px;
+      background: rgba(255, 107, 87, 0.25);
+    }
+    .about-feat-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 20px 0;
+      position: relative;
+    }
+    .feat-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--coral);
+      z-index: 2;
+    }
+    .about-feat-item:nth-child(2) .feat-icon-box {
+      border-color: var(--coral);
+      box-shadow: 0 0 12px rgba(255, 107, 87, 0.3);
+    }
+    .feat-text {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--text-white);
+    }
+
+    .about-content h2 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .about-desc {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .about-stats {
+      display: flex;
+      gap: 48px;
+    }
+    .stat-item h3 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text-white);
+      margin-bottom: 4px;
+    }
+    .stat-item h3 span {
+      color: var(--coral);
+    }
+    .stat-item p {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header-center {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+    .section-header-center h2 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .section-header-center .divider-dash {
+      width: 24px;
+      height: 3px;
+      background: var(--coral);
+      margin: 0 auto;
+      border-radius: 2px;
+    }
+
+    /* ─── PROJECTS / EXPERIENCE (Alternating Cards from image) ─── */
+    .section-projects {
+      padding: 40px 0 100px;
+    }
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+    .project-row.reversed {
+      direction: rtl;
+    }
+    .project-row.reversed > * {
+      direction: ltr;
+    }
+
+    .proj-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .proj-role-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--coral);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .proj-role-tag::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+    .proj-info h3 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-white);
+    }
+    .proj-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-dim);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .proj-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .proj-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .proj-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .proj-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-proj-primary {
+      background: var(--coral);
+      color: #ffffff;
+      padding: 9px 20px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-proj-primary:hover {
+      background: var(--coral-hover);
+      transform: translateY(-2px);
+    }
+    .btn-proj-link {
+      color: var(--text-white);
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .btn-proj-link:hover {
+      color: var(--coral);
+    }
+
+    /* ─── TRIADMUSIC AI SPOTLIGHT & DEEP DIVE ─── */
+    .triad-spotlight-card {
+      background: linear-gradient(145deg, #131e2b 0%, #0d1520 100%);
+      border: 1px solid rgba(255, 107, 87, 0.35);
+      border-radius: 12px;
+      padding: 36px;
+      margin-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+    .triad-spotlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,107,87,0.1) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+    }
+    .triad-spotlight-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .triad-badge-ai {
+      background: rgba(255, 107, 87, 0.15);
+      border: 1px solid var(--coral);
+      color: var(--coral);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .triad-story-text {
+      color: #b0c2d4;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+    .triad-ai-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .triad-ai-item {
+      background: rgba(11, 17, 24, 0.7);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--coral);
+      border-radius: 6px;
+      padding: 18px;
+      transition: all 0.2s;
+    }
+    .triad-ai-item:hover {
+      border-color: var(--coral);
+      transform: translateY(-2px);
+      background: rgba(11, 17, 24, 0.95);
+    }
+    .triad-ai-item-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .triad-ai-item-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Terminal/Mockup visuals on project cards */
+    .proj-visual {
+      background: #090e14;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .proj-visual::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(255, 107, 87, 0.25);
+      border-radius: 8px;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .terminal-header {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .terminal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .terminal-code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #a0c0e0;
+    }
+    .terminal-code .kw { color: var(--coral); }
+    /* ─── SKILLS, PROFICIENCIES & EDUCATION ─── */
+    .section-skills {
+      padding: 90px 0;
+      border-top: 1px solid var(--border);
+      background: var(--bg-surface);
+    }
+    .skills-education-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .skills-group {
+      margin-bottom: 28px;
+    }
+    .skills-group:last-child {
+      margin-bottom: 0;
+    }
+    .skills-group-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--coral);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #d2dce6;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s;
+    }
+    .skill-chip:hover {
+      border-color: var(--coral);
+      color: var(--text-white);
+      transform: translateY(-1px);
+    }
+    .skill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Proficiencies */
+    .prof-wrap {
+      margin-bottom: 48px;
+    }
+    .prof-header-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 20px;
+      color: var(--text-white);
+    }
+    .prof-item {
+      margin-bottom: 18px;
+    }
+    .prof-item:last-child {
+      margin-bottom: 0;
+    }
+    .prof-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .prof-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-white);
+    }
+    .prof-percent {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--coral);
+      font-weight: 600;
+    }
+    .prof-track {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .prof-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--coral), #ff8f7d);
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Education & Certifications Cards */
+    .edu-cert-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .edu-cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px;
+      transition: border-color 0.2s;
+    }
+    .edu-cert-card:hover {
+      border-color: rgba(255, 107, 87, 0.4);
+    }
+    .edu-cert-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--coral);
+      margin-bottom: 16px;
+    }
+    .edu-cert-item {
+      margin-bottom: 14px;
+    }
+    .edu-cert-item:last-child {
+      margin-bottom: 0;
+    }
+    .edu-cert-item strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 2px;
+    }
+    .edu-cert-item span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ─── CONTACT SECTION ─── */
+    .section-contact {
+      padding: 80px 0 100px;
+      border-top: 1px solid var(--border);
+    }
+    .contact-subline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .contact-subline::before {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 2px;
+      background: var(--coral);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      margin-top: 20px;
+      align-items: center;
+    }
+    .contact-left h2 {
+      font-size: clamp(34px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .contact-left p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .contact-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      transition: all 0.2s;
+    }
+    .contact-link-card:hover {
+      border-color: var(--coral);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+    .contact-card-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--coral);
+      flex-shrink: 0;
+    }
+    .contact-card-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-white);
+      margin-bottom: 2px;
+    }
+    .contact-card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .contact-card-arrow {
+      font-size: 18px;
+      color: var(--text-dim);
+      transition: color 0.2s;
+    }
+    .contact-link-card:hover .contact-card-arrow {
+      color: var(--coral);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 50px 0 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer-name {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .footer-sub {
+      color: var(--text-dim);
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .social-btn:hover {
+      color: var(--text-white);
+      border-color: var(--coral);
+      transform: translateY(-2px);
+    }
+
+    /* ─── RESPONSIVE SYSTEM (All screen tiers: Desktop, Tablets, Mobile) ─── */
+    
+    /* 1. Laptops and Small Desktops (<= 1100px) */
+    @media (max-width: 1100px) {
+      .container {
+        padding: 0 32px;
+      }
+      .hero-grid {
+        gap: 30px;
+      }
+      .avatar-circle-outer {
+        width: 280px;
+        height: 280px;
+      }
+      .avatar-inner {
+        width: 235px;
+        height: 235px;
+      }
+      .about-grid {
+        gap: 40px;
+      }
+      .project-row {
+        gap: 36px;
+        margin-bottom: 70px;
+      }
+    }
+
+    /* 2. Tablets in Landscape & Medium Screens (<= 992px) */
+    @media (max-width: 992px) {
+      .hero {
+        padding-top: 120px;
+        padding-bottom: 60px;
+        min-height: auto;
+      }
+      .hero-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 24px;
+      }
+      .hero-title {
+        font-size: clamp(34px, 4.5vw, 46px);
+      }
+      .avatar-circle-outer {
+        width: 240px;
+        height: 240px;
+      }
+      .avatar-inner {
+        width: 200px;
+        height: 200px;
+      }
+      .avatar-placeholder {
+        font-size: 50px;
+      }
+      .tech-bar-inner {
+        justify-content: center;
+        gap: 12px 24px;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+      .about-features {
+        max-width: 480px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .about-content {
+        text-align: center;
+      }
+      .about-desc {
+        max-width: 680px;
+        margin: 0 auto 32px;
+      }
+      .about-stats {
+        justify-content: center;
+        gap: 40px;
+      }
+      .skills-education-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .contact-left {
+        text-align: center;
+      }
+      .contact-left p {
+        max-width: 580px;
+        margin: 0 auto 20px;
+      }
+      .contact-left .proj-actions {
+        justify-content: center;
+      }
+    }
+
+    /* 3. Tablets in Portrait & Compact Laptops (<= 820px) */
+    @media (max-width: 820px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 36px;
+      }
+      .hero-intro {
+        justify-content: center;
+      }
+      .hero-subline {
+        justify-content: center;
+      }
+      .hero-subline::before {
+        display: none;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .hero-avatar-wrap {
+        order: -1;
+        margin: 0 auto;
+      }
+      .project-row,
+      .project-row.reversed {
+        grid-template-columns: 1fr;
+        direction: ltr;
+        gap: 28px;
+        margin-bottom: 60px;
+      }
+      .proj-info {
+        text-align: left;
+      }
+      .nav-links {
+        gap: 20px;
+      }
+      .nav-links a {
+        font-size: 13px;
+      }
+    }
+
+    /* 4. Small Tablets & Mobile Devices (<= 640px) */
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+      .container {
+        padding: 0 20px;
+      }
+      .hero {
+        padding-top: 100px;
+        padding-bottom: 40px;
+      }
+      .hero-title {
+        font-size: clamp(30px, 7.5vw, 40px);
+        margin-bottom: 22px;
+      }
+      .section-about {
+        padding: 60px 0;
+      }
+      .about-stats {
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .stat-item {
+        min-width: 85px;
+      }
+      .stat-item h3 {
+        font-size: 32px;
+      }
+      .section-projects {
+        padding: 30px 0 60px;
+      }
+      .proj-info h3 {
+        font-size: 21px;
+      }
+      .section-contact {
+        padding: 60px 0 70px;
+      }
+    }
+
+    /* 5. Compact Smartphones (<= 480px) */
+    @media (max-width: 480px) {
+      .hero-intro {
+        font-size: 22px;
+      }
+      .hero-subline {
+        font-size: 15px;
+      }
+      .avatar-circle-outer {
+        width: 200px;
+        height: 200px;
+      }
+      .avatar-inner {
+        width: 165px;
+        height: 165px;
+      }
+      .avatar-placeholder {
+        font-size: 40px;
+      }
+      .avatar-circle-outer::before,
+      .avatar-circle-outer::after {
+        display: none;
+      }
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn-coral, .btn-outline {
+        width: 100%;
+      }
+      .tech-bar-item {
+        font-size: 13px;
+      }
+      .proj-badges {
+        gap: 6px;
+      }
+      .proj-badge {
+        font-size: 11.5px;
+        padding: 3px 10px;
+      }
+      .terminal-code {
+        font-size: 11px;
+      }
+      .proj-visual {
+        padding: 14px;
+        overflow-x: auto;
+      }
+      .contact-link-card {
+        padding: 12px 16px;
+      }
+      .contact-card-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+      .contact-card-title {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ═══ -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="dot"></span>
+        Claudio Traspadini Oliveira
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects &amp; Experience</a></li>
+        <li><a href="#skills">Skills &amp; Education</a></li>
+        <li><a href="#triadmusic">TriadMusic</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-intro">
+          Hello <span class="dot">•</span>
+        </div>
+        <div class="hero-subline">I'm Claudio Traspadini Oliveira</div>
+        <h1 class="hero-title">Senior Software Engineer</h1>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-coral">Got a project?</a>
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-outline">My LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="hero-avatar-wrap">
+        <div class="avatar-circle-outer">
+          <div class="avatar-inner">
+            <div class="avatar-placeholder">CT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TECH TICKER ═══ -->
+  <div class="tech-bar">
+    <div class="container tech-bar-inner">
+      <span class="tech-bar-item">Java / Kotlin</span>
+      <span class="tech-bar-item">Go (Fiber)</span>
+      <span class="tech-bar-item">TypeScript</span>
+      <span class="tech-bar-item">Kafka &amp; Beam</span>
+      <span class="tech-bar-item">PostgreSQL &amp; pgvector</span>
+      <span class="tech-bar-item">AWS &amp; GCP</span>
+      <span class="tech-bar-item">Docker &amp; K8s</span>
+    </div>
+  </div>
+
+  <!-- ═══ ABOUT ME ═══ -->
+  <section class="section-about container" id="about">
+    <div class="about-grid">
+      <!-- Left side: Feature items with vertical line -->
+      <div class="about-features">
+        <div class="about-feat-item">
+          <div class="feat-icon-box">⚡</div>
+          <div class="feat-text">Distributed Systems &amp; Cloud</div>
+        </div>
+        <div class="about-feat-item">
+          <div class="feat-icon-box">🤖</div>
+          <div class="feat-text">AI Integrations &amp; pgvector RAG</div>
+        </div>
+        <div class="about-feat-item">
+          <div class="feat-icon-box">🛠️</div>
+          <div class="feat-text">Data Platforms &amp; Event Streaming</div>
+        </div>
+      </div>
+
+      <!-- Right side: Bio & Key Numbers -->
+      <div class="about-content">
+        <h2>About me</h2>
+        <p class="about-desc">
+          Senior Software Engineer based in Calgary, Canada with 12+ years of experience building high-performance distributed systems, data streaming pipelines, and AI-powered products. Proven track record across energy, automotive, food delivery, and music tech.
+        </p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <h3>$10M<span>+</span></h3>
+            <p>Maintenance<br/>Savings</p>
+          </div>
+          <div class="stat-item">
+            <h3>600<span>%</span></h3>
+            <p>Deployment<br/>Speedup</p>
+          </div>
+          <div class="stat-item">
+            <h3>12<span>+</span></h3>
+            <p>Years of<br/>Experience</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS & WORK (Alternating Cards layout from image) ═══ -->
+  <section class="section-projects container" id="projects">
+    <div class="section-header-center">
+      <h2>Projects &amp; Experience</h2>
+      <div class="divider-dash"></div>
+    </div>
+
+    <!-- 1. LodgeLink -->
+    <div class="project-row">
+      <div class="proj-info">
+        <div class="proj-header">
+          <span class="proj-role-tag">Senior Software Engineer — Platform</span>
+          <h3>LodgeLink</h3>
+          <div class="proj-meta">
+            <span>Remote, Canada</span> • <span>Apr 2025 – Present</span>
+          </div>
+        </div>
+        <div class="proj-badges">
+          <span class="proj-badge">Go</span>
+          <span class="proj-badge">PostgreSQL</span>
+          <span class="proj-badge">AWS</span>
+          <span class="proj-badge">Code Generator</span>
+          <span class="proj-badge">GitHub Actions</span>
+        </div>
+        <p class="proj-desc">
+          Building a high-efficiency deterministic Go service generator reused across internal engineering teams. Standardizing architecture blueprints, CI/CD automation, and drastically cutting down developer onboarding time.
+        </p>
+        <div class="proj-actions">
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-primary">View Role</a>
+          <a href="https://github.com/caltras" target="_blank" class="btn-proj-link">
+            <span>Platform Stack</span> ↗
+          </a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+        </div>
+        <pre class="terminal-code"><code><span class="comment">// Go deterministic service scaffolding engine</span>
+<span class="kw">type</span> <span class="fn">ServiceGenerator</span> <span class="kw">struct</span> {
+  PackageName <span class="kw">string</span>
+  DomainModel <span class="kw">interface{}</span>
+  DBDriver    <span class="str">"pgx/v5"</span>
+}
+<span class="comment">// Enforces clean-architecture across all microservices</span></code></pre>
+      </div>
+    </div>
+
+    <!-- 2. SkipTheDishes (Reversed) -->
+    <div class="project-row reversed">
+      <div class="proj-info">
+        <div class="proj-header">
+          <span class="proj-role-tag">Senior Software Engineer — Live Ops</span>
+          <h3>SkipTheDishes (JustEat Group)</h3>
+          <div class="proj-meta">
+            <span>Remote, Canada (Contract)</span> • <span>Aug 2024 – Apr 2025</span>
+          </div>
+        </div>
+        <div class="proj-badges">
+          <span class="proj-badge">Java</span>
+          <span class="proj-badge">Quarkus</span>
+          <span class="proj-badge">AWS</span>
+          <span class="proj-badge">RabbitMQ</span>
+          <span class="proj-badge">SNS / SQS</span>
+          <span class="proj-badge">Redis</span>
+          <span class="proj-badge">Terraform</span>
+        </div>
+        <p class="proj-desc">
+          Engineered mission-critical live order operations and backend integrations bridging the SkipTheDishes platform with JustEat global systems, handling high-throughput asynchronous messaging with Quarkus and AWS.
+        </p>
+        <div class="proj-actions">
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-primary">View Role</a>
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-link">Live Ops ↗</a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+        </div>
+        <pre class="terminal-code"><code><span class="comment">// Live Ops Reactive Order Stream (Quarkus)</span>
+<span class="kw">@Incoming</span>(<span class="str">"live-orders-in"</span>)
+<span class="kw">@Outgoing</span>(<span class="str">"justeat-sync-out"</span>)
+<span class="kw">public</span> Multi&lt;OrderEvent&gt; <span class="fn">processOrderEvent</span>(OrderEvent event) {
+    <span class="kw">return</span> redisCache.validate(event)
+        .<span class="fn">onItem</span>().transform(transformer::enrich);
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- 3. TriadMusic (Flagship Showcase & AI Deep Dive) -->
+    <div class="triad-spotlight-card" id="triadmusic">
+      <div class="triad-spotlight-top">
+        <div>
+          <div class="proj-header" style="margin-bottom: 8px;">
+            <span class="proj-role-tag">Creator &amp; Full-Stack Architect (CEO &amp; CTO)</span>
+            <h3 style="font-size: 28px; font-weight: 800; letter-spacing: -0.8px;">TriadMusic — AI-Powered Platform for Musicians</h3>
+            <div class="proj-meta">
+              <span>Production Platform &amp; Community</span> • <span>2022 – Present</span> • <a href="https://triadmusic.app" target="_blank" style="color:var(--coral); font-weight:600;">triadmusic.app ↗</a>
+            </div>
+          </div>
+          <div class="proj-badges" style="margin-bottom: 0;">
+            <span class="proj-badge">Go (Fiber)</span>
+            <span class="proj-badge">Nuxt 3 / Vue</span>
+            <span class="proj-badge">PostgreSQL &amp; pgvector</span>
+            <span class="proj-badge">LLM &amp; RAG Architecture</span>
+            <span class="proj-badge">Vector Embeddings</span>
+            <span class="proj-badge">Audio DSP / MIDI</span>
+            <span class="proj-badge">OIDC &amp; RBAC Security</span>
+            <span class="proj-badge">Cloud Native / Microservices</span>
+          </div>
+        </div>
+        <div class="triad-badge-ai">🤖 AI &amp; DSP Core</div>
+      </div>
+
+      <p class="triad-story-text">
+        <strong>TriadMusic</strong> is a comprehensive intelligent platform engineered for musicians, bands, and music directors. It streamlines rehearsal scheduling, song libraries, smart chord charts, dynamic setlists, and live stage sound tools. Built from the ground up with a high-performance Go Fiber REST API, a responsive Nuxt 3 web client, and a self-hosted AI &amp; DSP infrastructure delivering sub-50ms music intelligence.
+      </p>
+
+      <h4 style="font-size: 15px; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 0.8px; font-family: var(--font-mono); margin-bottom: 12px;">
+        ⚡ AI Architecture &amp; Custom Models
+      </h4>
+
+      <div class="triad-ai-grid">
+        <div class="triad-ai-item">
+          <div class="triad-ai-item-title">🔍 Hybrid Semantic Vector Search</div>
+          <div class="triad-ai-item-desc">
+            Custom in-database PostgreSQL vector similarity search, achieving sub-50ms lyrical and chord semantic retrieval at zero marginal operational cost.
+          </div>
+        </div>
+
+        <div class="triad-ai-item">
+          <div class="triad-ai-item-title">💬 RAG Pipeline &amp; Context Assistant</div>
+          <div class="triad-ai-item-desc">
+            Custom Retrieval-Augmented Generation (RAG) pipeline injecting real-time song database context, enabling smart chord transposition, lyrical queries, and context-aware music assistance.
+          </div>
+        </div>
+
+        <div class="triad-ai-item">
+          <div class="triad-ai-item-title">🎹 Audio-to-MIDI Transcription</div>
+          <div class="triad-ai-item-desc">
+            Machine learning &amp; DSP audio analysis module converting recorded and live instruments into clean MIDI notes and chord progressions directly in the browser.
+          </div>
+        </div>
+
+        <div class="triad-ai-item">
+          <div class="triad-ai-item-title">🎧 Digital IEM &amp; Stage Tools</div>
+          <div class="triad-ai-item-desc">
+            Real-time wireless in-ear monitor audio mixing tools and smart setlist generation taking into account key transitions, tempo curves, and performance history.
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-actions" style="margin-top: 28px;">
+        <a href="https://triadmusic.app" target="_blank" class="btn-proj-primary">Launch triadmusic.app</a>
+        <a href="https://github.com/caltras" target="_blank" class="btn-proj-link">
+          <span>Explore Repositories</span> ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- 4. Ford Motor Company & Autonomic (Reversed) -->
+    <div class="project-row reversed">
+      <div class="proj-info">
+        <div class="proj-header">
+          <span class="proj-role-tag">Senior Software Engineer — Data Platform</span>
+          <h3>Ford Motor Company / Autonomic</h3>
+          <div class="proj-meta">
+            <span>Remote, Canada</span> • <span>Jun 2022 – May 2024</span>
+          </div>
+        </div>
+        <div class="proj-badges">
+          <span class="proj-badge">Kotlin</span>
+          <span class="proj-badge">Apache Beam</span>
+          <span class="proj-badge">Apache Druid</span>
+          <span class="proj-badge">Kafka to Pub/Sub</span>
+          <span class="proj-badge">GCP</span>
+          <span class="proj-badge">gRPC</span>
+        </div>
+        <p class="proj-desc">
+          Migrated 12 SOA microservices from Kafka to Google Cloud Pub/Sub with zero downtime following Ford's acquisition. Refactored 4 core microservices to eliminate 98% of security vulnerabilities on time-series telemetry data pipelines.
+        </p>
+        <div class="proj-actions">
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-primary">View Experience</a>
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-link">Telemetry Stack ↗</a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+        </div>
+        <pre class="terminal-code"><code><span class="kw">class</span> <span class="fn">HistoricalDataPipeline</span> : BeamPipeline {
+  <span class="kw">fun</span> <span class="fn">processTelemetry</span>(stream: PCollection&lt;VehicleData&gt;) {
+    stream
+      .<span class="fn">apply</span>(Window.into(FixedWindows.of(Duration.standardMinutes(1))))
+      .<span class="fn">apply</span>(PubSubIO.writeStrings().to(<span class="str">"projects/ford/topics/stream"</span>))
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- 5. Blackline Safety -->
+    <div class="project-row">
+      <div class="proj-info">
+        <div class="proj-header">
+          <span class="proj-role-tag">Staff Software Engineer &amp; Senior SWE</span>
+          <h3>Blackline Safety Corp</h3>
+          <div class="proj-meta">
+            <span>Calgary, Alberta, Canada</span> • <span>Jan 2020 – Jun 2022</span>
+          </div>
+        </div>
+        <div class="proj-badges">
+          <span class="proj-badge">Staff Engineer</span>
+          <span class="proj-badge">Java</span>
+          <span class="proj-badge">Spring Boot</span>
+          <span class="proj-badge">Kafka</span>
+          <span class="proj-badge">CloudFormation (IaC)</span>
+          <span class="proj-badge">AWS</span>
+        </div>
+        <p class="proj-desc">
+          Promoted to Staff Software Engineer. Reduced new service deployment cycles from 6 months down to 1 month (600% acceleration) with AWS CloudFormation microservice templates. Built high-availability life-critical emergency alert processing pipelines.
+        </p>
+        <div class="proj-actions">
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-primary">View Role</a>
+          <a href="https://github.com/caltras" target="_blank" class="btn-proj-link">IaC Architecture ↗</a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+        </div>
+        <pre class="terminal-code"><code><span class="comment"># AWS CloudFormation Microservice Blueprint (6x faster)</span>
+<span class="kw">AlertTaskDefinition:</span>
+  <span class="kw">Type:</span> <span class="str">AWS::ECS::TaskDefinition</span>
+  <span class="kw">Properties:</span>
+    <span class="kw">Family:</span> <span class="str">blackline-safety-alerts</span>
+    <span class="kw">RequiresCompatibilities:</span> [<span class="str">FARGATE</span>]
+    <span class="kw">Cpu:</span> <span class="str">"1024"</span></code></pre>
+      </div>
+    </div>
+
+    <!-- 6. ResourceKraft (Reversed) -->
+    <div class="project-row reversed">
+      <div class="proj-info">
+        <div class="proj-header">
+          <span class="proj-role-tag">Full Stack Developer</span>
+          <h3>ResourceKraft</h3>
+          <div class="proj-meta">
+            <span>Limerick, Ireland</span> • <span>Dec 2017 – Dec 2019</span>
+          </div>
+        </div>
+        <div class="proj-badges">
+          <span class="proj-badge">Java</span>
+          <span class="proj-badge">Spring Boot</span>
+          <span class="proj-badge">Angular</span>
+          <span class="proj-badge">PostgreSQL</span>
+          <span class="proj-badge">AWS ECS</span>
+          <span class="proj-badge">Docker</span>
+        </div>
+        <p class="proj-desc">
+          Developed energy intelligence software resulting in a 30% reduction in customer energy expenditures. Achieved a 50% decrease in application bugs through rigorous automated testing and modernizing the Angular/Spring Boot codebase.
+        </p>
+        <div class="proj-actions">
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-primary">View Details</a>
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-link">Energy Tech ↗</a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+        </div>
+        <pre class="terminal-code"><code><span class="comment">// Energy Consumption Analytics</span>
+<span class="kw">public</span> EnergyReport <span class="fn">computeSavings</span>(List&lt;SmartMeterReading&gt; data) {
+    <span class="kw">return</span> data.stream()
+        .<span class="fn">filter</span>(reading -&gt; reading.isPeakHours())
+        .<span class="fn">collect</span>(EnergyAggregators.summarizeEfficiencies());
+    <span class="comment">// 30% client energy reduction delivered</span>
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- 7. Petrobras / Vixteam -->
+    <div class="project-row">
+      <div class="proj-info">
+        <div class="proj-header">
+          <span class="proj-role-tag">Team Leader &amp; Senior Developer</span>
+          <h3>Vixteam / Petrobras</h3>
+          <div class="proj-meta">
+            <span>Vitória, Brazil</span> • <span>Mar 2015 – Mar 2017</span>
+          </div>
+        </div>
+        <div class="proj-badges">
+          <span class="proj-badge">Team Leader</span>
+          <span class="proj-badge">Java / J2EE</span>
+          <span class="proj-badge">Grails</span>
+          <span class="proj-badge">PI OSIsoft</span>
+          <span class="proj-badge">WebSockets</span>
+          <span class="proj-badge">Oracle 10g</span>
+        </div>
+        <p class="proj-desc">
+          Led an agile software engineering team of 6 engineers building real-time telemetry monitoring software for offshore oil wells. Delivered solutions that generated over $10 Million in equipment maintenance savings for Petrobras.
+        </p>
+        <div class="proj-actions">
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-primary">View Role</a>
+          <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="btn-proj-link">Telemetry Systems ↗</a>
+        </div>
+      </div>
+      <div class="proj-visual">
+        <div class="terminal-header">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+        </div>
+        <pre class="terminal-code"><code><span class="comment">// Real-time PI OSIsoft oil-well monitoring</span>
+WebSocketSession.streamTelemetry(wellId)
+  .<span class="fn">filter</span>(sensor -&gt; sensor.temperature &gt; THRESHOLD)
+  .<span class="fn">triggerAlert</span>(Severity.CRITICAL);
+<span class="comment">// Delivered $10M in maintenance savings</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS, PROFICIENCIES & EDUCATION ═══ -->
+  <section class="section-skills" id="skills">
+    <div class="container">
+      <div class="section-header-center" style="margin-bottom: 50px;">
+        <h2>Skills &amp; Education</h2>
+        <div class="divider-dash"></div>
+      </div>
+
+      <div class="skills-education-grid">
+        <!-- Left: Categorized Skill Chips -->
+        <div>
+          <div class="skills-group">
+            <div class="skills-group-title">Languages</div>
+            <div class="skill-chips">
+              <span class="skill-chip"><span class="skill-dot" style="background:#f89820"></span>Java</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#7b5ea7"></span>Kotlin</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#00acd7"></span>Go</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#3178c6"></span>TypeScript</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#f7df1e"></span>JavaScript</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#3572a5"></span>Python</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#178600"></span>Groovy</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#a97bff"></span>C / C++</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Backend Frameworks</div>
+            <div class="skill-chips">
+              <span class="skill-chip"><span class="skill-dot" style="background:#68bc71"></span>Spring Boot</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#4ade80"></span>Go Fiber</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#ff6b35"></span>Quarkus</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#e0234e"></span>NestJS</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#8d4fff"></span>Express.js</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#178600"></span>Grails</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Data &amp; Event Streaming</div>
+            <div class="skill-chips">
+              <span class="skill-chip"><span class="skill-dot" style="background:#ffffff"></span>Apache Kafka</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#ff9900"></span>Apache Beam</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#f97316"></span>Apache Druid</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#336791"></span>PostgreSQL</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#4ade80"></span>pgvector</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#47a248"></span>MongoDB</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#dc382d"></span>Redis</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#f9a825"></span>ElasticSearch</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Cloud &amp; DevOps</div>
+            <div class="skill-chips">
+              <span class="skill-chip"><span class="skill-dot" style="background:#ff9900"></span>AWS (ECS, Lambda, SQS)</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#4285f4"></span>GCP (Pub/Sub, Dataflow)</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#2496ed"></span>Docker</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#326ce5"></span>Kubernetes</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#844fba"></span>Terraform (IaC)</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#38bdf8"></span>CI / CD Pipelines</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#a3e635"></span>Microservices</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">AI &amp; Machine Learning</div>
+            <div class="skill-chips">
+              <span class="skill-chip"><span class="skill-dot" style="background:#a78bfa"></span>pgvector Embeddings</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#34d399"></span>RAG Pipelines</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#fbbf24"></span>LLM APIs &amp; Runtime</span>
+              <span class="skill-chip"><span class="skill-dot" style="background:#f87171"></span>Audio-to-MIDI / DSP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Core Proficiencies + Education & Certs -->
+        <div>
+          <!-- Proficiencies with Progress Bars -->
+          <div class="prof-wrap">
+            <h3 class="prof-header-title">Core Proficiencies</h3>
+            
+            <div class="prof-item">
+              <div class="prof-info">
+                <span class="prof-name">Java / Spring Boot / Kotlin</span>
+                <span class="prof-percent">96%</span>
+              </div>
+              <div class="prof-track"><div class="prof-fill" data-percent="96"></div></div>
+            </div>
+
+            <div class="prof-item">
+              <div class="prof-info">
+                <span class="prof-name">Apache Kafka &amp; Event Streaming</span>
+                <span class="prof-percent">90%</span>
+              </div>
+              <div class="prof-track"><div class="prof-fill" data-percent="90"></div></div>
+            </div>
+
+            <div class="prof-item">
+              <div class="prof-info">
+                <span class="prof-name">Go (Fiber / Gin / Microservices)</span>
+                <span class="prof-percent">88%</span>
+              </div>
+              <div class="prof-track"><div class="prof-fill" data-percent="88"></div></div>
+            </div>
+
+            <div class="prof-item">
+              <div class="prof-info">
+                <span class="prof-name">TypeScript / Node.js</span>
+                <span class="prof-percent">87%</span>
+              </div>
+              <div class="prof-track"><div class="prof-fill" data-percent="87"></div></div>
+            </div>
+
+            <div class="prof-item">
+              <div class="prof-info">
+                <span class="prof-name">PostgreSQL &amp; pgvector (Vector DB)</span>
+                <span class="prof-percent">86%</span>
+              </div>
+              <div class="prof-track"><div class="prof-fill" data-percent="86"></div></div>
+            </div>
+
+            <div class="prof-item">
+              <div class="prof-info">
+                <span class="prof-name">AWS / GCP / Docker / Kubernetes</span>
+                <span class="prof-percent">85%</span>
+              </div>
+              <div class="prof-track"><div class="prof-fill" data-percent="85"></div></div>
+            </div>
+          </div>
+
+          <!-- Education & Certifications Cards -->
+          <div class="edu-cert-container">
+            <div class="edu-cert-card">
+              <div class="edu-cert-title">🎓 Education</div>
+              <div class="edu-cert-item">
+                <strong>MBA in Project Management</strong>
+                <span>Fundação Getulio Vargas (FGV), Brazil</span>
+              </div>
+              <div class="edu-cert-item">
+                <strong>B.Sc. in Computer Science</strong>
+                <span>FAESA, Brazil</span>
+              </div>
+              <div class="edu-cert-item">
+                <strong>Information Technology</strong>
+                <span>CEFET-ES, Brazil</span>
+              </div>
+            </div>
+
+            <div class="edu-cert-card">
+              <div class="edu-cert-title">📜 Certifications</div>
+              <div class="edu-cert-item">
+                <strong>Oracle Certified Professional — Java 11 Developer</strong>
+                <span>Oracle (Issued April 2021)</span>
+              </div>
+              <div class="edu-cert-item">
+                <strong>Scrum Fundamentals Certified (SFC™)</strong>
+                <span>SCRUMstudy — ID: 68459 (Issued Nov 2014)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT SECTION ═══ -->
+  <section class="section-contact container" id="contact">
+    <div class="contact-subline">Contacts</div>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h2>Have a project?<br/>Let's talk!</h2>
+        <p>I am open to new opportunities, technical collaborations, and senior/staff software engineering roles. Feel free to connect or send a message directly.</p>
+        <div class="proj-actions">
+          <a href="mailto:caltras@gmail.com" class="btn-coral">Send an Email</a>
+        </div>
+      </div>
+
+      <div class="contact-links-list">
+        <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="contact-link-card">
+          <div class="contact-card-info">
+            <div class="contact-card-icon">💼</div>
+            <div>
+              <div class="contact-card-title">LinkedIn</div>
+              <div class="contact-card-desc">linkedin.com/in/claudiotraspadini</div>
+            </div>
+          </div>
+          <div class="contact-card-arrow">↗</div>
+        </a>
+
+        <a href="https://github.com/caltras" target="_blank" class="contact-link-card">
+          <div class="contact-card-info">
+            <div class="contact-card-icon">🐙</div>
+            <div>
+              <div class="contact-card-title">GitHub</div>
+              <div class="contact-card-desc">github.com/caltras</div>
+            </div>
+          </div>
+          <div class="contact-card-arrow">↗</div>
+        </a>
+
+        <a href="mailto:caltras@gmail.com" class="contact-link-card">
+          <div class="contact-card-info">
+            <div class="contact-card-icon">✉️</div>
+            <div>
+              <div class="contact-card-title">Direct Email</div>
+              <div class="contact-card-desc">caltras@gmail.com</div>
+            </div>
+          </div>
+          <div class="contact-card-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="container">
+      <div class="footer-name">Claudio Traspadini Oliveira</div>
+      <div class="footer-sub">Calgary, Alberta, Canada • Brazilian-Canadian • Oracle Certified Java 11</div>
+      <div class="footer-socials">
+        <a href="mailto:caltras@gmail.com" class="social-btn" title="Email">✉</a>
+        <a href="https://github.com/caltras" target="_blank" class="social-btn" title="GitHub">🐙</a>
+        <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="social-btn" title="LinkedIn">in</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ SCRIPTS ═══ -->
+  <script>
+    // Animate proficiency progress bars on scroll
+    const profObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fills = entry.target.querySelectorAll('.prof-fill');
+          fills.forEach(fill => {
+            const percent = fill.getAttribute('data-percent');
+            if (percent) {
+              fill.style.width = percent + '%';
+            }
+          });
+          profObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    const profWrap = document.querySelector('.prof-wrap');
+    if (profWrap) {
+      profObserver.observe(profWrap);
+    }
+  </script>
+</body>
+</html>
