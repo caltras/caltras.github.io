@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claudio Traspadini — Senior Software Engineer</title>
+
+  <!-- Editorial type stack: Playfair Display (serif) + Inter (sans) + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       TASTE SKILL: Neutral base, one accent, no AI-purple
+    ═══════════════════════════════════════════════ */
+    :root {
+      /* Palette — off-white / off-black, never pure values */
+      --bg:        #f4f3f0;
+      --bg2:       #eceae5;
+      --ink:       #111110;
+      --ink2:      #3a3835;
+      --muted:     #7c7970;
+      --muted2:    #b0ada6;
+      --border:    rgba(17,17,16,0.09);
+      --border2:   rgba(17,17,16,0.16);
+
+      /* Single accent — warm terracotta, not AI-purple */
+      --accent:    #c84b2f;
+      --accent-l:  #f0ece7;
+      --accent-d:  #9e3820;
+
+      /* Surfaces */
+      --card:      #faf9f7;
+      --card2:     #f0ede8;
+
+      /* Type */
+      --font-sans:   'Inter', system-ui, sans-serif;
+      --font-serif:  'Playfair Display', Georgia, serif;
+      --font-mono:   'JetBrains Mono', monospace;
+
+      /* Radii — one system, consistent */
+      --r:    12px;
+      --r-sm: 8px;
+      --r-xs: 5px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Noise texture overlay — tasteskill.dev uses this */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.55;
+    }
+
+    * { position: relative; z-index: 1; }
+    body::before { z-index: 0; }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    strong { font-weight: 600; }
+
+    /* Taste Skill: serif for editorial headlines */
+    .serif { font-family: var(--font-serif); }
+    .mono  { font-family: var(--font-mono); }
+
+    /* ═══════════════════════════════════════════════
+       NAV — single line, max 80px height
+    ═══════════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 16px; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      max-height: 52px;
+      padding: 0 max(24px, 4vw);
+    }
+    .nav-pill {
+      display: flex; align-items: center;
+      background: rgba(244,243,240,0.88);
+      backdrop-filter: blur(16px) saturate(1.6);
+      border: 1px solid var(--border2);
+      border-radius: 99px;
+      box-shadow: 0 6px 20px -8px rgba(17,17,16,0.18), 0 1px 2px rgba(17,17,16,0.04);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav-pill:hover {
+      box-shadow: 0 10px 28px -8px rgba(17,17,16,0.22), 0 1px 2px rgba(17,17,16,0.05);
+    }
+    .nav-logo-pill {
+      padding: 7px 14px 7px 10px; gap: 8px;
+      font-size: 14px; font-weight: 700; letter-spacing: -0.3px; color: var(--ink);
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .nav-logo-pill:hover { text-decoration: none; color: var(--ink); }
+    .nav-monogram {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--ink); color: #f4f3f0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; font-family: var(--font-serif);
+      letter-spacing: -0.5px; flex-shrink: 0;
+    }
+
+    .nav-links-pill {
+      display: flex; align-items: center;
+      padding: 6px 8px; gap: 2px;
+    }
+    .nav-link {
+      padding: 5px 13px; border-radius: 99px;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .nav-link:hover { color: var(--ink); background: rgba(17,17,16,0.05); text-decoration: none; }
+    .nav-cta-pill {
+      padding: 6px 16px 6px 6px;
+    }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--ink); color: #f4f3f0;
+      border-radius: 99px; padding: 7px 16px;
+      font-size: 13px; font-weight: 600;
+      transition: background 0.2s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .nav-cta:hover { background: var(--ink2); transform: translateY(-1px); text-decoration: none; color: #f4f3f0; }
+
+    /* ═══════════════════════════════════════════════
+       HERO — editorial, asymmetric, fits viewport
+       Taste Skill: max 2 lines headline, max 20 words subtext
+    ═══════════════════════════════════════════════ */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding-top: 80px;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px max(32px, 4vw) 80px max(48px, 6vw);
+      border-right: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow .dot-live {
+      width: 6px; height: 6px; border-radius: 50%; background: #22c55e;
+      flex-shrink: 0;
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(52px, 6vw, 88px);
+      font-weight: 900; line-height: 0.95; letter-spacing: -2px;
+      margin-bottom: 28px;
+      color: var(--ink);
+    }
+    .hero h1 em {
+      font-style: italic; font-weight: 400;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 17px; color: var(--ink2); max-width: 380px;
+      line-height: 1.65; margin-bottom: 40px;
+    }
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 56px;
+    }
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--ink); color: #f4f3f0;
+      border-radius: var(--r-sm); padding: 12px 22px;
+      font-size: 14px; font-weight: 600;
+      box-shadow: 0 12px 28px -10px rgba(17,17,16,0.4);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+    }
+    .btn-dark:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -12px rgba(17,17,16,0.5); text-decoration: none; color: #f4f3f0; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--ink2);
+      border: 1px solid var(--border2);
+      border-radius: var(--r-sm); padding: 12px 22px;
+      font-size: 14px; font-weight: 500;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--ink2); background: rgba(17,17,16,0.04); text-decoration: none; color: var(--ink); }
+
+    /* Stats — inline, separated by thin lines */
+    .hero-stats {
+      display: flex; gap: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+    }
+    .h-stat {
+      padding-right: 28px; margin-right: 28px;
+      border-right: 1px solid var(--border);
+    }
+    .h-stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+    .h-stat-n {
+      font-family: var(--font-serif);
+      font-size: 30px; font-weight: 700; line-height: 1;
+      color: var(--ink); letter-spacing: -1px;
+    }
+    .h-stat-l {
+      font-size: 11px; color: var(--muted); margin-top: 4px; font-weight: 500;
+    }
+
+    /* Right side: editorial stacked cards */
+    .hero-right {
+      display: flex; flex-direction: column;
+      background: var(--bg2);
+      padding: 96px max(32px, 3vw) 80px;
+      gap: 0;
+      overflow: hidden;
+    }
+    .hero-kpi-stack { display: flex; flex-direction: column; gap: 1px; }
+    .kpi-row {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .kpi-row:last-child { border-bottom: none; }
+    .kpi-num {
+      font-family: var(--font-serif); font-size: clamp(44px, 5vw, 68px);
+      font-weight: 700; line-height: 1; letter-spacing: -2px;
+      color: var(--ink); white-space: nowrap; flex-shrink: 0;
+      min-width: 140px;
+    }
+    .kpi-num.accent { color: var(--accent); }
+    .kpi-text { }
+    .kpi-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .kpi-desc { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 240px; }
+
+    /* ═══════════════════════════════════════════════
+       SECTIONS
+    ═══════════════════════════════════════════════ */
+    section { padding: 96px max(24px, 4vw); }
+
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
+      display: inline-block; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 4vw, 52px); font-weight: 700; letter-spacing: -1.5px;
+      line-height: 1.08; margin-bottom: 14px; color: var(--ink);
+    }
+    .section-title em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .section-sub {
+      color: var(--muted); font-size: 16px; max-width: 480px; line-height: 1.75;
+    }
+    .sh { margin-bottom: 60px; }
+
+    /* ═══════════════════════════════════════════════
+       HIGHLIGHTS — 2-col zig-zag, not equal cards
+       Taste Skill: No three-equal-card feature rows
+    ═══════════════════════════════════════════════ */
+    #highlights { background: var(--card); border-top: 1px solid var(--border); }
+
+    .hl-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+    .hl-item {
+      background: var(--card); padding: 40px 36px;
+      transition: background 0.25s ease;
+    }
+    .hl-item:hover { background: var(--card2); }
+    .hl-item.wide { grid-column: 1 / -1; }
+    .hl-num {
+      font-family: var(--font-serif); font-size: 48px; font-weight: 700;
+      color: var(--accent); line-height: 1; margin-bottom: 16px; letter-spacing: -2px;
+    }
+    .hl-item h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--ink); }
+    .hl-item p { color: var(--muted); font-size: 14px; line-height: 1.7; max-width: 380px; }
+
+    /* ═══════════════════════════════════════════════
+       TIMELINE — alternating, editorial
+    ═══════════════════════════════════════════════ */
+    #experience { border-top: 1px solid var(--border); }
+
+    .tl { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+    .tl-entry {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: 0; border-top: 1px solid var(--border); padding: 36px 0;
+    }
+    .tl-entry:last-child { border-bottom: 1px solid var(--border); }
+
+    .tl-left { padding-right: 32px; }
+    .tl-date {
+      font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+      font-weight: 500; letter-spacing: 0.04em; line-height: 1.4;
+      padding-top: 3px;
+    }
+    .tl-right { }
+
+    .tl-company { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .tl-logo {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: var(--card); border: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .tl-co-name { font-size: 16px; font-weight: 700; color: var(--ink); }
+    .tl-co-loc { font-size: 12px; color: var(--muted); }
+
+    .tl-role {
+      font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+      font-weight: 500; margin-bottom: 12px; letter-spacing: 0.02em;
+    }
+    .tl-ach {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-l); border: 1px solid rgba(200,75,47,0.18);
+      border-radius: var(--r-xs); padding: 6px 12px;
+      font-size: 12.5px; font-weight: 600; color: var(--accent-d);
+      margin-bottom: 12px;
+    }
+    .tl-bullets { list-style: none; margin-bottom: 14px; }
+    .tl-bullets li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13.5px; color: var(--muted); line-height: 1.65; margin-bottom: 5px;
+    }
+    .tl-bullets li::before {
+      content: '–'; color: var(--muted2); flex-shrink: 0; margin-top: 0; font-weight: 300;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-xs); padding: 3px 9px;
+      font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    }
+
+    /* ═══════════════════════════════════════════════
+       SKILLS — asymmetric 2-col
+    ═══════════════════════════════════════════════ */
+    #skills {
+      background: var(--ink); color: #f4f3f0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    #skills .eyebrow { color: rgba(244,243,240,0.4); }
+    #skills .section-title { color: #f4f3f0; }
+    #skills .section-sub { color: rgba(244,243,240,0.55); }
+
+    .skills-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr; gap: 80px; align-items: start;
+    }
+    .sg { margin-bottom: 32px; }
+    .sg-label {
+      font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(244,243,240,0.38); margin-bottom: 12px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(244,243,240,0.06); border: 1px solid rgba(244,243,240,0.1);
+      border-radius: var(--r-xs); padding: 6px 12px;
+      font-size: 13px; font-weight: 400; color: rgba(244,243,240,0.8);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .chip:hover { background: rgba(244,243,240,0.1); border-color: rgba(244,243,240,0.2); }
+    .cdot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; opacity: 0.7; }
+
+    /* Proficiency — in dark section */
+    .prof-wrap { }
+    .prof-hed {
+      font-family: var(--font-serif); font-size: 22px; font-weight: 600;
+      color: #f4f3f0; margin-bottom: 28px; letter-spacing: -0.5px;
+      font-style: italic;
+    }
+    .prof-item { margin-bottom: 20px; }
+    .prof-head { display: flex; justify-content: space-between; margin-bottom: 7px; }
+    .prof-name { font-size: 13px; font-weight: 500; color: rgba(244,243,240,0.85); }
+    .prof-pct { font-size: 11.5px; color: rgba(244,243,240,0.38); font-family: var(--font-mono); }
+    .prof-track { height: 2px; background: rgba(244,243,240,0.1); border-radius: 99px; overflow: hidden; }
+    .prof-fill {
+      height: 100%; border-radius: 99px; width: 0;
+      background: rgba(244,243,240,0.7);
+      transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* Certs + edu */
+    .meta-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 56px;
+    }
+    .meta-card {
+      background: rgba(244,243,240,0.05); border: 1px solid rgba(244,243,240,0.1);
+      border-radius: var(--r); padding: 22px;
+    }
+    .meta-card h4 {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(244,243,240,0.35); margin-bottom: 16px; font-family: var(--font-mono);
+    }
+    .meta-card .mi { margin-bottom: 12px; }
+    .meta-card .mi strong { display: block; font-size: 13.5px; font-weight: 600; color: rgba(244,243,240,0.88); }
+    .meta-card .mi span { font-size: 12px; color: rgba(244,243,240,0.38); }
+
+    /* ═══════════════════════════════════════════════
+       TRIADMUSIC — editorial feature layout
+    ═══════════════════════════════════════════════ */
+    #triadmusic { border-top: 1px solid var(--border); }
+
+    .triad-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; margin-bottom: 72px; align-items: center;
+    }
+    .triad-intro-text { }
+    .triad-intro-right {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 36px; overflow: hidden;
+    }
+    .triad-url {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent);
+      border: 1px solid rgba(200,75,47,0.25); border-radius: var(--r-xs);
+      padding: 8px 14px; margin-bottom: 20px;
+      transition: background 0.2s;
+    }
+    .triad-url:hover { background: var(--accent-l); text-decoration: none; }
+    .triad-stack { display: flex; flex-wrap: wrap; gap: 7px; }
+    .triad-sp {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r-xs); padding: 5px 11px;
+      font-family: var(--font-mono); font-size: 11.5px; color: var(--ink2);
+    }
+
+    /* AI grid — 2-col asymmetric */
+    .ai-section {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 44px; margin-bottom: 48px;
+    }
+    .ai-header {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 36px; flex-wrap: wrap;
+    }
+    .ai-header h3 {
+      font-family: var(--font-serif); font-size: 26px; font-weight: 700;
+      letter-spacing: -0.8px; color: var(--ink); font-style: italic;
+    }
+    .ai-badge {
+      font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-l);
+      border: 1px solid rgba(200,75,47,0.2);
+      border-radius: 99px; padding: 4px 12px;
+    }
+    /* Taste Skill: no three-equal-card rows — use asymmetric 2+1 layout */
+    .ai-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 16px;
+    }
+    .ai-item {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 22px;
+      border-left: 2px solid var(--accent);
+      transition: background 0.25s;
+    }
+    .ai-item:hover { background: var(--card2); }
+    .ai-item.span2 { grid-column: 1 / -1; }
+    .ai-item h5 {
+      font-size: 13.5px; font-weight: 700; color: var(--accent-d);
+      margin-bottom: 6px;
+    }
+    .ai-item p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* Feature list — NOT equal cards, use a list with dividers */
+    .feat-list { display: flex; flex-direction: column; gap: 0; }
+    .feat-row {
+      display: grid; grid-template-columns: 48px 1fr 2fr;
+      gap: 24px; align-items: start;
+      padding: 28px 0; border-top: 1px solid var(--border);
+    }
+    .feat-row:last-child { border-bottom: 1px solid var(--border); }
+    .feat-num {
+      font-family: var(--font-serif); font-size: 22px; font-weight: 700;
+      color: var(--muted2); line-height: 1; padding-top: 2px;
+    }
+    .feat-name { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; }
+    .feat-desc { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+    /* ═══════════════════════════════════════════════
+       CONTACT — minimal, centered
+    ═══════════════════════════════════════════════ */
+    #contact {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    #contact h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700; letter-spacing: -2px; color: var(--ink);
+      line-height: 1.05; margin-bottom: 14px;
+    }
+    #contact h2 em { font-style: italic; color: var(--accent); font-weight: 400; }
+    #contact p { color: var(--muted); font-size: 16px; max-width: 400px; margin: 0 auto 40px; }
+    .cl-grid { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .cl {
+      display: flex; align-items: center; gap: 9px;
+      background: var(--card); border: 1px solid var(--border2);
+      border-radius: var(--r-sm); padding: 12px 20px;
+      font-size: 13.5px; font-weight: 600; color: var(--ink2);
+      transition: border-color 0.2s, background 0.2s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .cl:hover { border-color: var(--ink2); background: var(--bg); transform: translateY(-2px); text-decoration: none; color: var(--ink); }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--border); padding: 24px max(24px, 4vw);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+      font-size: 12px; color: var(--muted2);
+    }
+
+    /* ═══════════════════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════════════════ */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { border-right: none; border-bottom: 1px solid var(--border); padding: 100px 24px 48px; }
+      .hero-right { padding: 40px 24px 64px; }
+      .hero h1 { font-size: 52px; }
+      .kpi-num { font-size: 44px; min-width: 110px; }
+      .hl-layout { grid-template-columns: 1fr; }
+      .hl-item.wide { grid-column: 1; }
+      .skills-grid { grid-template-columns: 1fr; gap: 48px; }
+      .meta-row { grid-template-columns: 1fr; }
+      .triad-intro { grid-template-columns: 1fr; gap: 32px; }
+      .feat-row { grid-template-columns: 40px 1fr; }
+      .feat-desc { display: none; }
+      .ai-grid { grid-template-columns: 1fr; }
+      .ai-item.span2 { grid-column: 1; }
+    }
+
+    @media (max-width: 640px) {
+      .tl-entry { grid-template-columns: 1fr; }
+      .tl-left { margin-bottom: 8px; }
+      section { padding: 64px 20px; }
+      .nav-links-pill { display: none; }
+      .hero-stats { flex-direction: column; gap: 20px; }
+      .h-stat { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+      .h-stat:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#" class="nav-pill nav-logo-pill">
+    <span class="nav-monogram">CT</span>
+    Claudio Traspadini
+  </a>
+  <div class="nav-pill nav-links-pill">
+    <a href="#highlights" class="nav-link">Highlights</a>
+    <a href="#experience" class="nav-link">Experience</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#triadmusic" class="nav-link">TriadMusic</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+  <div class="nav-pill nav-cta-pill">
+    <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="nav-cta">
+      Connect
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-left reveal">
+    <div class="hero-eyebrow">
+      <span class="dot-live"></span>
+      Senior Software Engineer, open to new roles
+    </div>
+    <h1>
+      Claudio<br/>
+      <em>Traspadini.</em>
+    </h1>
+    <p class="hero-sub">
+      12 years building distributed systems and data platforms. Based in Calgary, Canada. Creator of TriadMusic.
+    </p>
+    <div class="hero-actions">
+      <a href="#experience" class="btn-dark">View experience</a>
+      <a href="https://github.com/caltras" target="_blank" class="btn-ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        github/caltras
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <div class="h-stat-n">12+</div>
+        <div class="h-stat-l">Years experience</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-n">$10M</div>
+        <div class="h-stat-l">Cost savings delivered</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-n">600%</div>
+        <div class="h-stat-l">Deployment speed-up</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right reveal reveal-d2">
+    <div class="hero-kpi-stack">
+      <div class="kpi-row">
+        <div class="kpi-num accent">98%</div>
+        <div class="kpi-text">
+          <div class="kpi-title">Security Vulnerabilities Eliminated</div>
+          <div class="kpi-desc">At Autonomic, refactored 4 critical microservices to near-zero CVEs in production.</div>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-num">12</div>
+        <div class="kpi-text">
+          <div class="kpi-title">Services Migrated at Ford</div>
+          <div class="kpi-desc">SOA microservices moved from Kafka to Pub/Sub post-acquisition with zero downtime.</div>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-num accent">6x</div>
+        <div class="kpi-text">
+          <div class="kpi-title">Deployment Cycle Faster</div>
+          <div class="kpi-desc">Blackline Safety: 6 months to 1 month using IaC templates with Spring Boot and Docker.</div>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-num">2</div>
+        <div class="kpi-text">
+          <div class="kpi-title">Languages & Citizenships</div>
+          <div class="kpi-desc">Brazilian-Canadian. Fluent in Portuguese and English. Based in Calgary, Alberta.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HIGHLIGHTS ══ -->
+<section id="highlights">
+  <div class="sh reveal">
+    <div class="eyebrow">About</div>
+    <h2 class="section-title">What I bring<br/>to <em>every team.</em></h2>
+    <p class="section-sub">Measurable impact, senior technical judgment, and a track record across automotive, safety, energy, food, and music tech.</p>
+  </div>
+
+  <!-- Taste Skill: asymmetric grid, not equal cards -->
+  <div class="hl-layout reveal reveal-d1">
+    <div class="hl-item wide" style="display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;">
+      <div style="padding:40px 36px;border-right:1px solid var(--border)">
+        <div class="hl-num">$10M</div>
+        <h3>Cost Savings at Petrobras</h3>
+        <p>Led the software team at Vixteam (Petrobras) that produced $10 million in oil-well equipment maintenance savings through data-driven monitoring tools.</p>
+      </div>
+      <div style="padding:40px 36px">
+        <div class="hl-num">600%</div>
+        <h3>Faster Deployments at Blackline</h3>
+        <p>Reduced deployment cycle from 6 months to 1 month by implementing Infrastructure as Code templates with Spring Boot and Docker.</p>
+      </div>
+    </div>
+    <div class="hl-item" style="border-top:1px solid var(--border)">
+      <div class="hl-num">98%</div>
+      <h3>Security Vulnerabilities Removed</h3>
+      <p>At Autonomic (Ford), refactored 4 production microservices and eliminated nearly all security vulnerabilities from the Historical Data Processing pipeline.</p>
+    </div>
+    <div class="hl-item" style="border-top:1px solid var(--border);border-left:1px solid var(--border)">
+      <div class="hl-num">12+</div>
+      <h3>Years of Engineering Leadership</h3>
+      <p>From junior developer in Brazil to Staff Engineer and Team Lead in Canada and Ireland. Oracle Certified Java 11. Scrum SFC certified. Expert mentor on Codementor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE TIMELINE ══ -->
+<section id="experience">
+  <div class="sh reveal">
+    <div class="eyebrow">Career</div>
+    <h2 class="section-title">15 years of <em>building.</em></h2>
+    <p class="section-sub">From oil-well monitoring in Brazil to automotive data platforms in Canada, with stops in Ireland and food delivery along the way.</p>
+  </div>
+
+  <div class="tl">
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">Apr 2025<br/>Present</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">🏕️</div>
+          <div>
+            <div class="tl-co-name">Lodge Link</div>
+            <div class="tl-co-loc">Remote, Canada</div>
+          </div>
+        </div>
+        <div class="tl-role">Senior Software Engineer / Platform</div>
+        <ul class="tl-bullets">
+          <li>Building a Go code generator for deterministic service scaffolding, reused across all company services.</li>
+          <li>Reducing onboarding time by enforcing consistent architectural patterns company-wide.</li>
+        </ul>
+        <div class="tags"><span class="tag">Go</span><span class="tag">Postgres</span><span class="tag">AWS</span><span class="tag">GitHub Actions</span></div>
+      </div>
+    </div>
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">Aug 2024<br/>Apr 2025</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">🍔</div>
+          <div>
+            <div class="tl-co-name">SkipTheDishes</div>
+            <div class="tl-co-loc">Remote, Canada / Contract</div>
+          </div>
+        </div>
+        <div class="tl-role">Senior Software Engineer / Live Ops</div>
+        <ul class="tl-bullets">
+          <li>Integration work between SkipTheDishes and JustEat ecosystems on the Live Ops team.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Quarkus</span><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">RabbitMQ</span><span class="tag">SNS/SQS</span><span class="tag">Redis</span></div>
+      </div>
+    </div>
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">Jun 2023<br/>May 2024</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">🚗</div>
+          <div>
+            <div class="tl-co-name">Ford Motor Company</div>
+            <div class="tl-co-loc">Remote, Canada</div>
+          </div>
+        </div>
+        <div class="tl-role">Senior Software Engineer / Data Platform</div>
+        <div class="tl-ach">Migrated 12 SOA microservices from Kafka to Pub/Sub</div>
+        <ul class="tl-bullets">
+          <li>Ensured minimal disruption during service transition post-Autonomic acquisition.</li>
+          <li>Built data pipelines with Apache Beam and Kotlin on GCP for the Data Platform team.</li>
+          <li>Code quality enforced via unit tests, FOSSA, and SonarQube.</li>
+        </ul>
+        <div class="tags"><span class="tag">Kotlin</span><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Apache Beam</span><span class="tag">Kubernetes</span><span class="tag">GCP</span><span class="tag">gRPC</span></div>
+      </div>
+    </div>
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">Jun 2022<br/>Jun 2023</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">🚘</div>
+          <div>
+            <div class="tl-co-name">Autonomic (acq. by Ford)</div>
+            <div class="tl-co-loc">Remote, Canada</div>
+          </div>
+        </div>
+        <div class="tl-role">Senior Software Engineer / Historical Data Processing</div>
+        <div class="tl-ach">98% reduction in security vulnerabilities across 4 microservices</div>
+        <ul class="tl-bullets">
+          <li>Led system maintenance and new feature delivery in a highly available production environment.</li>
+          <li>Kotlin microservices with Spring Boot, Apache Druid for time-series data processing.</li>
+          <li>Load tested with Grafana K6, unit tested with JUnit and Mockito.</li>
+        </ul>
+        <div class="tags"><span class="tag">Kotlin</span><span class="tag">Spring Boot</span><span class="tag">Apache Druid</span><span class="tag">Kafka</span><span class="tag">GCP</span><span class="tag">Grafana K6</span></div>
+      </div>
+    </div>
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">Jan 2020<br/>Jun 2022</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">🛡️</div>
+          <div>
+            <div class="tl-co-name">Blackline Safety Corp</div>
+            <div class="tl-co-loc">Calgary, Canada</div>
+          </div>
+        </div>
+        <div class="tl-role">Staff Engineer then Senior Software Engineer</div>
+        <div class="tl-ach">600% faster deployments — 6 months to 1 month via IaC</div>
+        <ul class="tl-bullets">
+          <li>90% code quality increase through SonarQube and TestContainers automation.</li>
+          <li>Built a high-demand alert system with Kafka, ElasticSearch, and AWS Elasticache.</li>
+          <li>Mentored developers via pair programming and code review.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Kafka</span><span class="tag">Docker</span><span class="tag">Terraform</span><span class="tag">AWS</span><span class="tag">Angular</span></div>
+      </div>
+    </div>
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">Dec 2017<br/>Dec 2019</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">⚡</div>
+          <div>
+            <div class="tl-co-name">ResourceKraft</div>
+            <div class="tl-co-loc">Limerick, Ireland</div>
+          </div>
+        </div>
+        <div class="tl-role">Full Stack Developer</div>
+        <ul class="tl-bullets">
+          <li>50% reduction in system bugs, improving user satisfaction and code security.</li>
+          <li>30% reduction in customer energy costs through an energy management system.</li>
+          <li>Angular 1.x and Angular 7 frontend; Java Spring Boot + Hibernate backend on AWS ECS.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">AWS ECS</span></div>
+      </div>
+    </div>
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">Mar 2015<br/>Mar 2017</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">🛢️</div>
+          <div>
+            <div class="tl-co-name">Vixteam / Petrobras</div>
+            <div class="tl-co-loc">Vitoria, Brazil</div>
+          </div>
+        </div>
+        <div class="tl-role">Team Leader / Senior Software Developer</div>
+        <div class="tl-ach">$10M in equipment maintenance savings for Petrobras</div>
+        <ul class="tl-bullets">
+          <li>Led an agile team of 6 through requirements, architecture, and delivery.</li>
+          <li>Built high-performance oil-well monitoring tools with PI OsiSoft, WebSockets, and J2EE.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java / J2EE</span><span class="tag">Groovy &amp; Grails</span><span class="tag">PI OsiSoft</span><span class="tag">Oracle 10g</span><span class="tag">Angular.js</span></div>
+      </div>
+    </div>
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">Mar 2013<br/>Mar 2015</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">🔬</div>
+          <div>
+            <div class="tl-co-name">Spassu Tecnologia / Petrobras</div>
+            <div class="tl-co-loc">Vitoria, Brazil</div>
+          </div>
+        </div>
+        <div class="tl-role">Software Developer</div>
+        <ul class="tl-bullets">
+          <li>95% code quality increase and 70% test coverage via automated testing.</li>
+          <li>Real-time gas and well production monitoring using PI OSIsoft and Java/Grails.</li>
+          <li>Built SOA microservices with Node.js (Express) for integration and testing.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java / Grails</span><span class="tag">Node.js</span><span class="tag">PI OsiSoft</span><span class="tag">.Net</span><span class="tag">Oracle 10g</span></div>
+      </div>
+    </div>
+
+    <div class="tl-entry reveal">
+      <div class="tl-left">
+        <div class="tl-date">2008<br/>2013</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-company">
+          <div class="tl-logo">🗂️</div>
+          <div>
+            <div class="tl-co-name">Early career, Brazil</div>
+            <div class="tl-co-loc">Vitoria, Brazil</div>
+          </div>
+        </div>
+        <div class="tl-role">Developer then System Analyst</div>
+        <ul class="tl-bullets">
+          <li>Infotec Brasil (Petrobras) — Java, TomCat, JBoss, .Net enterprise applications. 2010-2013.</li>
+          <li>Engesis Engenharia — High-performance 3D systems with C/C++ and OpenGL. 2009-2010.</li>
+          <li>Avista Administradora — Java, Delphi, ASP for credit card platform. 2008-2009.</li>
+        </ul>
+        <div class="tags"><span class="tag">Java</span><span class="tag">C/C++</span><span class="tag">OpenGL</span><span class="tag">Delphi</span><span class="tag">.Net</span><span class="tag">JBoss</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="sh reveal">
+    <div class="eyebrow">Stack</div>
+    <h2 class="section-title" style="color:#f4f3f0">15 years of<br/><em>accumulated craft.</em></h2>
+    <p class="section-sub">Polyglot engineer — JVM to Go, Petrobras to automotive cloud, enterprise Java to AI-powered music tech.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="reveal reveal-d1">
+      <div class="sg">
+        <div class="sg-label">Languages</div>
+        <div class="chips">
+          <span class="chip"><span class="cdot" style="background:#f89820"></span>Java</span>
+          <span class="chip"><span class="cdot" style="background:#7b5ea7"></span>Kotlin</span>
+          <span class="chip"><span class="cdot" style="background:#00acd7"></span>Go</span>
+          <span class="chip"><span class="cdot" style="background:#3178c6"></span>TypeScript</span>
+          <span class="chip"><span class="cdot" style="background:#f7df1e"></span>JavaScript</span>
+          <span class="chip"><span class="cdot" style="background:#3572A5"></span>Python</span>
+          <span class="chip"><span class="cdot" style="background:#178600"></span>Groovy</span>
+          <span class="chip"><span class="cdot" style="background:#A97BFF"></span>C/C++</span>
+        </div>
+      </div>
+      <div class="sg">
+        <div class="sg-label">Backend</div>
+        <div class="chips">
+          <span class="chip"><span class="cdot" style="background:#68bc71"></span>Spring Boot</span>
+          <span class="chip"><span class="cdot" style="background:#e0234e"></span>NestJS</span>
+          <span class="chip"><span class="cdot" style="background:#4ade80"></span>Go Fiber</span>
+          <span class="chip"><span class="cdot" style="background:#ff6b35"></span>Quarkus</span>
+          <span class="chip"><span class="cdot" style="background:#8d4fff"></span>Express.js</span>
+          <span class="chip"><span class="cdot" style="background:#178600"></span>Grails</span>
+        </div>
+      </div>
+      <div class="sg">
+        <div class="sg-label">Data &amp; Streaming</div>
+        <div class="chips">
+          <span class="chip"><span class="cdot" style="background:#e8e8e8"></span>Apache Kafka</span>
+          <span class="chip"><span class="cdot" style="background:#f90"></span>Apache Beam</span>
+          <span class="chip"><span class="cdot" style="background:#f97316"></span>Apache Druid</span>
+          <span class="chip"><span class="cdot" style="background:#336791"></span>PostgreSQL</span>
+          <span class="chip"><span class="cdot" style="background:#4ade80"></span>pgvector</span>
+          <span class="chip"><span class="cdot" style="background:#47a248"></span>MongoDB</span>
+          <span class="chip"><span class="cdot" style="background:#dc382d"></span>Redis</span>
+          <span class="chip"><span class="cdot" style="background:#f9a825"></span>ElasticSearch</span>
+        </div>
+      </div>
+      <div class="sg">
+        <div class="sg-label">Cloud &amp; DevOps</div>
+        <div class="chips">
+          <span class="chip"><span class="cdot" style="background:#f90"></span>AWS</span>
+          <span class="chip"><span class="cdot" style="background:#4285f4"></span>GCP</span>
+          <span class="chip"><span class="cdot" style="background:#2496ed"></span>Docker</span>
+          <span class="chip"><span class="cdot" style="background:#326ce5"></span>Kubernetes</span>
+          <span class="chip"><span class="cdot" style="background:#844fba"></span>Terraform</span>
+          <span class="chip"><span class="cdot" style="background:#f4f3f0"></span>Railway</span>
+          <span class="chip"><span class="cdot" style="background:#0080ff"></span>Supabase</span>
+        </div>
+      </div>
+      <div class="sg">
+        <div class="sg-label">Frontend</div>
+        <div class="chips">
+          <span class="chip"><span class="cdot" style="background:#41b883"></span>Vue 3 / Nuxt 3</span>
+          <span class="chip"><span class="cdot" style="background:#dd1b16"></span>Angular</span>
+          <span class="chip"><span class="cdot" style="background:#06b6d4"></span>Tailwind</span>
+        </div>
+      </div>
+      <div class="sg">
+        <div class="sg-label">AI / ML</div>
+        <div class="chips">
+          <span class="chip"><span class="cdot" style="background:#a78bfa"></span>pgvector / embeddings</span>
+          <span class="chip"><span class="cdot" style="background:#34d399"></span>RAG pipelines</span>
+          <span class="chip"><span class="cdot" style="background:#fbbf24"></span>LM Studio</span>
+          <span class="chip"><span class="cdot" style="background:#f87171"></span>Audio-to-MIDI</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-d2">
+      <div class="prof-wrap">
+        <div class="prof-hed">Core proficiencies</div>
+        <div class="prof-item">
+          <div class="prof-head"><span class="prof-name">Java / Spring / Kotlin</span><span class="prof-pct">96%</span></div>
+          <div class="prof-track"><div class="prof-fill" data-w="96"></div></div>
+        </div>
+        <div class="prof-item">
+          <div class="prof-head"><span class="prof-name">Apache Kafka &amp; Beam</span><span class="prof-pct">90%</span></div>
+          <div class="prof-track"><div class="prof-fill" data-w="90"></div></div>
+        </div>
+        <div class="prof-item">
+          <div class="prof-head"><span class="prof-name">Go (Fiber / Gin)</span><span class="prof-pct">88%</span></div>
+          <div class="prof-track"><div class="prof-fill" data-w="88"></div></div>
+        </div>
+        <div class="prof-item">
+          <div class="prof-head"><span class="prof-name">TypeScript / Node.js</span><span class="prof-pct">87%</span></div>
+          <div class="prof-track"><div class="prof-fill" data-w="87"></div></div>
+        </div>
+        <div class="prof-item">
+          <div class="prof-head"><span class="prof-name">PostgreSQL &amp; pgvector</span><span class="prof-pct">86%</span></div>
+          <div class="prof-track"><div class="prof-fill" data-w="86"></div></div>
+        </div>
+        <div class="prof-item">
+          <div class="prof-head"><span class="prof-name">AWS / GCP / Kubernetes</span><span class="prof-pct">84%</span></div>
+          <div class="prof-track"><div class="prof-fill" data-w="84"></div></div>
+        </div>
+        <div class="prof-item">
+          <div class="prof-head"><span class="prof-name">Vue 3 / Nuxt 3</span><span class="prof-pct">83%</span></div>
+          <div class="prof-track"><div class="prof-fill" data-w="83"></div></div>
+        </div>
+        <div class="prof-item">
+          <div class="prof-head"><span class="prof-name">AI / Vector Search</span><span class="prof-pct">78%</span></div>
+          <div class="prof-track"><div class="prof-fill" data-w="78"></div></div>
+        </div>
+      </div>
+
+      <div class="meta-row reveal reveal-d3">
+        <div class="meta-card">
+          <h4>Education</h4>
+          <div class="mi"><strong>MBA in Project Management</strong><span>Fundacao Getulio Vargas (FGV)</span></div>
+          <div class="mi"><strong>B.Sc. Computer Science</strong><span>FAESA, Brazil</span></div>
+          <div class="mi"><strong>Information Technology</strong><span>CEFET-ES, Brazil</span></div>
+        </div>
+        <div class="meta-card">
+          <h4>Certifications</h4>
+          <div class="mi"><strong>Oracle Certified Java 11</strong><span>Oracle, April 2021</span></div>
+          <div class="mi"><strong>Scrum Fundamentals (SFC)</strong><span>SCRUMstudy, Nov 2014</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRIADMUSIC ══ -->
+<section id="triadmusic">
+  <div class="sh reveal">
+    <div class="eyebrow">Flagship project</div>
+    <h2 class="section-title">TriadMusic — music<br/>meets <em>engineering.</em></h2>
+    <p class="section-sub">A full-stack platform for worship musicians, built solo from architecture to deployment. With a growing AI layer.</p>
+  </div>
+
+  <div class="triad-intro reveal reveal-d1">
+    <div class="triad-intro-text">
+      <p style="font-size:16px;line-height:1.75;color:var(--ink2);margin-bottom:24px;">
+        TriadMusic manages band scheduling, song libraries, playlists, and live audio tools for worship teams. Built entirely solo since 2022 — Go API, Nuxt 3 frontend, mobile apps, and a complete AI integration layer using pgvector, LM Studio, and Deepseek R1.
+      </p>
+      <p style="font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:28px;">
+        Recently migrated search from Algolia to a custom PostgreSQL hybrid vector search using Nomic AI embeddings, achieving the same quality at zero marginal cost.
+      </p>
+      <a href="https://triadmusic.app" target="_blank" class="triad-url">
+        triadmusic.app
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </a>
+    </div>
+    <div class="triad-intro-right">
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">Tech stack</div>
+      <div class="triad-stack">
+        <span class="triad-sp">Go / Fiber</span>
+        <span class="triad-sp">Nuxt 3 / Vue</span>
+        <span class="triad-sp">PostgreSQL</span>
+        <span class="triad-sp">pgvector</span>
+        <span class="triad-sp">Supabase</span>
+        <span class="triad-sp">Railway</span>
+        <span class="triad-sp">Zitadel OIDC</span>
+        <span class="triad-sp">TypeScript</span>
+        <span class="triad-sp">LM Studio</span>
+        <span class="triad-sp">Deepseek R1</span>
+        <span class="triad-sp">Nomic Embeddings</span>
+        <span class="triad-sp">Testcontainers</span>
+        <span class="triad-sp">GORM</span>
+        <span class="triad-sp">Swaggo</span>
+        <span class="triad-sp">Air (hot reload)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Spotlight -->
+  <div class="ai-section reveal">
+    <div class="ai-header">
+      <h3>AI integration deep dive</h3>
+      <span class="ai-badge">AI-powered</span>
+    </div>
+    <!-- Taste Skill: no three-equal-card rows, use asymmetric 2-col grid -->
+    <div class="ai-grid">
+      <div class="ai-item">
+        <h5>Hybrid Semantic Search (pgvector)</h5>
+        <p>Migrated from Algolia to custom PostgreSQL hybrid search. Songs, lyrics, and chords vectorized with Nomic AI embeddings — full semantic similarity search at zero marginal cost.</p>
+      </div>
+      <div class="ai-item">
+        <h5>RAG Pipeline + LM Studio</h5>
+        <p>Full Retrieval-Augmented Generation pipeline in TypeScript. LM Studio SDK with JSON-backed vector store, supporting Deepseek R1 chat with real-time song database context injection.</p>
+      </div>
+      <div class="ai-item">
+        <h5>Custom Embedding Models</h5>
+        <p>Evaluated and deployed nomic-embed-text and text-embedding-nomic-ai400 via LM Studio SDK, tuned for music metadata and lyrical content retrieval.</p>
+      </div>
+      <div class="ai-item">
+        <h5>Audio-to-MIDI (two iterations)</h5>
+        <p>ML-based audio analysis converting live or recorded audio to MIDI. Musicians transcribe played notes and chords directly in the platform.</p>
+      </div>
+      <div class="ai-item span2">
+        <h5>Chord Detection Engine + AI Playlist Generation</h5>
+        <p>Custom chord detection microservice using audio DSP for real-time chord identification from audio input. In progress: LLM-powered playlist generation from natural language prompts respecting key, mood, and usage history.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features — list layout, not equal cards -->
+  <div class="reveal reveal-d1">
+    <div style="font-family:var(--font-mono);font-size:10.5px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:32px;">Platform components</div>
+    <div class="feat-list">
+      <div class="feat-row">
+        <div class="feat-num">01</div>
+        <div class="feat-name">Go API (Fiber)<br/>+ RBAC + Swagger</div>
+        <div class="feat-desc">High-performance REST API with GORM, PostgreSQL, Zitadel OIDC, full multi-tenant RBAC. Swagger docs via Swaggo, integration tests via Testcontainers. CI/CD on Railway.</div>
+      </div>
+      <div class="feat-row">
+        <div class="feat-num">02</div>
+        <div class="feat-name">MyTriad<br/>Node.js + Vue</div>
+        <div class="feat-desc">Original management app — Express backend with Vue.js frontend for managing songs, bands, schedules, and playlists across multiple worship team roles.</div>
+      </div>
+      <div class="feat-row">
+        <div class="feat-num">03</div>
+        <div class="feat-name">Mobile App</div>
+        <div class="feat-desc">Native app giving musicians access to schedules, lyrics, and setlists from their pocket during rehearsals and live services.</div>
+      </div>
+      <div class="feat-row">
+        <div class="feat-num">04</div>
+        <div class="feat-name">Digital IEM<br/>(In-Ear Monitor)</div>
+        <div class="feat-desc">Real-time wireless in-ear monitor system for live stage. Musicians receive personalized audio mixes wirelessly, eliminating stage cable complexity.</div>
+      </div>
+      <div class="feat-row">
+        <div class="feat-num">05</div>
+        <div class="feat-name">Studio + PWA DAW</div>
+        <div class="feat-desc">Browser-based multi-track audio player, live recording studio tools, and a Progressive Web App DAW for remote session collaboration without dedicated software.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="reveal">
+    <div class="eyebrow" style="color:var(--muted)">Get in touch</div>
+    <h2>Let's build<br/><em>something great.</em></h2>
+    <p>Senior or Staff Engineer positions, technical leadership, or a great collaboration — I'd love to connect.</p>
+    <div class="cl-grid">
+      <a href="https://linkedin.com/in/claudiotraspadini" target="_blank" class="cl">💼 LinkedIn</a>
+      <a href="https://github.com/caltras" target="_blank" class="cl">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        github/caltras
+      </a>
+      <a href="https://triadmusic.app" target="_blank" class="cl">🎵 TriadMusic</a>
+      <a href="https://www.codementor.io/@claudiotraspadini" target="_blank" class="cl">🎓 Codementor</a>
+      <a href="mailto:caltras@gmail.com" class="cl">✉️ caltras@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span>Claudio Traspadini Oliveira — Calgary, Alberta, Canada · T3M 0H3</span>
+  <span>Brazilian-Canadian · Oracle Certified Java 11 · Bilingual PT/EN</span>
+</footer>
+
+<script>
+  /* Scroll reveal */
+  const io = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* Proficiency bars */
+  const barIO = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.prof-fill').forEach(f => {
+          setTimeout(() => { f.style.width = f.dataset.w + '%'; }, 200);
+        });
+        barIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const bw = document.querySelector('.prof-wrap');
+  if (bw) barIO.observe(bw);
+
+  /* Nav active link */
+  const navLinks = document.querySelectorAll('.nav-link');
+  const secs = document.querySelectorAll('section[id]');
+  const nIO = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + e.target.id ? 'var(--ink)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+  secs.forEach(s => nIO.observe(s));
+</script>
+</body>
+</html>
